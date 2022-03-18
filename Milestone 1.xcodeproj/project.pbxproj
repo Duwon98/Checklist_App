@@ -14,6 +14,7 @@
 		002B09EA27E4264B0097C6AB /* Milestone_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B09E927E4264B0097C6AB /* Milestone_1Tests.swift */; };
 		002B09F427E4264B0097C6AB /* Milestone_1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B09F327E4264B0097C6AB /* Milestone_1UITests.swift */; };
 		002B09F627E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B09F527E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift */; };
+		002B0A0327E4272A0097C6AB /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B0A0227E4272A0097C6AB /* Module.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		002B09EF27E4264B0097C6AB /* Milestone 1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Milestone 1UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		002B09F327E4264B0097C6AB /* Milestone_1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone_1UITests.swift; sourceTree = "<group>"; };
 		002B09F527E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone_1UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		002B0A0227E4272A0097C6AB /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				002B09D827E426490097C6AB /* Milestone_1App.swift */,
 				002B09DA27E426490097C6AB /* ContentView.swift */,
+				002B0A0227E4272A0097C6AB /* Module.swift */,
 				002B09DC27E4264B0097C6AB /* Assets.xcassets */,
 				002B09DE27E4264B0097C6AB /* Preview Content */,
 			);
@@ -259,6 +262,7 @@
 			files = (
 				002B09DB27E426490097C6AB /* ContentView.swift in Sources */,
 				002B09D927E426490097C6AB /* Milestone_1App.swift in Sources */,
+				002B0A0327E4272A0097C6AB /* Module.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
