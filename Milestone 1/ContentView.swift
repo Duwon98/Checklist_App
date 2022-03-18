@@ -10,8 +10,11 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
-        Text("Games")
-            .padding()
+        List(games){
+            Text($0.name)
+        }
+
+
     }
 }
 
