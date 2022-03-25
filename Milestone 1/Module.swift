@@ -11,12 +11,13 @@ import Foundation
 
 struct Game: Identifiable{
     let name: String
+    let playing: Bool
     let id = UUID()
 }
 
 var games = [
-    Game(name: "League of Legend"),
-    Game(name: "Apex"),
-    Game(name: "Ghost of Thushima"),
-    Game(name: "Valorant")
+    Game(name: "League of Legend", playing: true),
+    Game(name: "Apex", playing: false),
+    Game(name: "Ghost of Thushima",playing: true),
+    Game(name: "Valorant",playing: false)
 ]

@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
 
     var body: some View {
         NavigationView{
-            List(games){ game in
-                Text(game.name)
+            List(games){
+                Text($0.name)
             }.navigationTitle("Games")
         }
     }
