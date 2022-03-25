@@ -18,6 +18,6 @@ struct Game: Identifiable{
 var games = [
     Game(name: "League of Legend", playing: true),
     Game(name: "Apex", playing: false),
-    Game(name: "Ghost of Thushima",playing: true),
+    Game(name: "Ghost of Tsushima",playing: true),
     Game(name: "Valorant",playing: false)
 ]
