@@ -11,12 +11,14 @@ import Foundation
 
 //var checkList = [CheckList]()
 
-struct Thing {
-    let title : String
-    let things : [String]?
+class CheckList: Identifiable{
+    var title: String
+    var lists: [String] = []
+    
+    init(title: String) {
+        self.title = title
+    }
 }
 
 
-
-var checklist = [Thing]()
 

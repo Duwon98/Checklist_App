@@ -8,32 +8,28 @@
 import SwiftUI
 
 
-
 struct ContentView: View {
-    @State private var users = ["Paul", "Taylor", "Adele"]
+    var checklist: [CheckListViewModle]
 
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(users, id: \.self) { list in
-                    Text(list)
-                }
-                .onDelete(perform: delete)
-            }
-            .toolbar {
-                EditButton()
-            }
+            ChecklistView(checklist: checklist)
         }
     }
 
-    func delete(at offsets: IndexSet) {
-        users.remove(atOffsets: offsets)
-    }
+ 
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(checklist: [
+            CheckListViewModle(checklist: CheckList(title: "Hello1")),
+            CheckListViewModle(checklist: CheckList(title: "Hello2")),
+            CheckListViewModle(checklist: CheckList(title: "Hello3"))
+        ])
     }
 }
+
+
 
