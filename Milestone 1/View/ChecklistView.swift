@@ -12,10 +12,16 @@ struct ChecklistView: View {
     var checklist: [CheckListViewModle]
     var body: some View {
         List(checklist) {list in
+            NavigationLink("\(list.checklist.title)"){
             CheckListDetailView(list: list)
+                    .navigationTitle("Detail view")
+            }
             
-            
-        }
+        }.navigationTitle("CheckLists")
+            .toolbar {
+                EditButton()
+            }
+           
     }
 }
 
