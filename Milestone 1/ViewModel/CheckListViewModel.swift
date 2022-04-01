@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CheckListViewModle: Identifiable{
+class CheckListViewModle: Identifiable {
     var checklist: CheckList
     
     init(checklist: CheckList){

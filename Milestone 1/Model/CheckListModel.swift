@@ -11,7 +11,7 @@ import Foundation
 
 //var checkList = [CheckList]()
 
-class CheckList: Identifiable{
+class CheckList: Identifiable {
     var title: String
     var lists: [String] = []
     
