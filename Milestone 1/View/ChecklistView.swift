@@ -12,7 +12,6 @@ struct ChecklistView: View {
     @State var checklist: [CheckListViewModle]
     var body: some View {
 
-//            Button("Add", action: add ).position(x:20,y: 0)
             List{
                 ForEach(checklist){list in
                     CheckListRowView(checklist: list)

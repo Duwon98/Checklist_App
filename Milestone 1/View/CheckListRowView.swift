@@ -14,6 +14,7 @@ struct CheckListRowView: View {
         NavigationLink("\(checklist.title)"){
             CheckListDetailView(list: checklist)
                 .navigationTitle(checklist.title)
+                
         }
     }
 }

@@ -144,8 +144,8 @@
 			children = (
 				002B09DA27E426490097C6AB /* ContentView.swift */,
 				0020D4D127F6C4C80033A2F3 /* ChecklistView.swift */,
-				0020D4CF27F6C3410033A2F3 /* CheckListDetailView.swift */,
 				00CAC43627F9818C003E159A /* CheckListRowView.swift */,
+				0020D4CF27F6C3410033A2F3 /* CheckListDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

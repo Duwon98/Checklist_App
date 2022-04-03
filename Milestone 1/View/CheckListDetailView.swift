@@ -10,13 +10,24 @@ import SwiftUI
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckListViewModle
     var body: some View {
-        VStack{
-//            Text(list.checklist.title)
-//            List (Array를 어떻게 수정할건지 고민)
-            TextField((list.checklist.title), text: $list.checklist.title)
+//        VStack{
+//            TextField((list.checklist.title), text: $list.checklist.title)
+//        }
+        List{
+            ForEach(list.lists, id: \.self){thing in
+                Text(thing)
+            }.onDelete(perform: delete)
+            
+        }.toolbar{
+            EditButton()
         }
+}
+    func delete(at offsets: IndexSet) {
+        list.lists.remove(atOffsets: offsets)
     }
 }
+
+
 
 struct CheckListDetailView_Previews: PreviewProvider {
     static var previews: some View {

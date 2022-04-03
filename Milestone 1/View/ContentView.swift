@@ -26,12 +26,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(checklist: [
-            CheckListViewModle(checklist: CheckList(title: "Hello1")),
-            CheckListViewModle(checklist: CheckList(title: "Hello2")),
-            CheckListViewModle(checklist: CheckList(title: "Hello3"))
+            CheckListViewModle(checklist: CheckList(title: "Hello1"))
         ])
     }
 }
+
 
 
 
