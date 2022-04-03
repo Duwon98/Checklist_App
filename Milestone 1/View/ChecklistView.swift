@@ -37,6 +37,8 @@ struct ChecklistView: View {
         checklist.remove(atOffsets: offsets)
     }
     
+//        .onDelete { list.lists.remove(atOffsets: $0) }
+    
     func add(){
         checklist.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
     }

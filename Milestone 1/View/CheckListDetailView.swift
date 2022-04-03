@@ -9,22 +9,42 @@ import SwiftUI
 
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckListViewModle
+    @State var isEditMode: EditMode = .inactive
     var body: some View {
-//        VStack{
-//            TextField((list.checklist.title), text: $list.checklist.title)
-//        }
-        List{
-            ForEach(list.lists, id: \.self){thing in
-                Text(thing)
-            }.onDelete(perform: delete)
+        VStack{
+            if (self.isEditMode == .active)  {
+                HStack{
+                    Text("✓    ")
+                    TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
+                }
+            }
             
-        }.toolbar{
-            EditButton()
+            List{
+                ForEach(list.lists, id: \.self){thing in
+                    HStack{
+                        if (self.isEditMode == .active)  {
+//                            Need to figure it out how to change the lists
+                        }
+                        Text(thing)
+                    }
+
+                    
+            }.toolbar{
+                EditButton()
+                .environment(\.editMode, self.$isEditMode)
+
         }
+
+            }.navigationTitle(list.title)
+        }
+
+        
+            
+        
+//    func delete(at offsets: IndexSet) {
+//        list.lists.remove(atOffsets: offsets)
+//    }
 }
-    func delete(at offsets: IndexSet) {
-        list.lists.remove(atOffsets: offsets)
-    }
 }
 
 
