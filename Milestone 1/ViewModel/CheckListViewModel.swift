@@ -7,8 +7,18 @@
 
 import Foundation
 
-class CheckListViewModle: Identifiable {
-    var checklist: CheckList
+class CheckListViewModle: Identifiable, ObservableObject {
+    @Published var checklist: CheckList
+    var title: String{
+        get { checklist.title}
+        set { checklist.title = newValue}
+    }
+    
+    var lists: [String]{
+        get { checklist.lists}
+        set { checklist.lists = newValue}
+    }
+    
     
     init(checklist: CheckList){
         self.checklist = checklist

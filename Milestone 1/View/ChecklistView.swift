@@ -13,10 +13,7 @@ struct ChecklistView: View {
     var body: some View {
         
             List(checklist) {list in
-                NavigationLink("\(list.checklist.title)"){
-                CheckListDetailView(list: list)
-                        .navigationTitle("Detail view")
-                }
+                CheckListRowView(checklist: list)
 
             }.navigationTitle("CheckLists")
                 .toolbar {
@@ -45,3 +42,14 @@ struct MasterView_Previews: PreviewProvider {
 //
 //
 //}
+
+struct CheckListRowView: View {
+    @ObservedObject var checklist: CheckListViewModle
+    
+    var body: some View {
+        NavigationLink("\(checklist.title)"){
+            CheckListDetailView(list: checklist)
+                .navigationTitle(checklist.title)
+        }
+    }
+}
