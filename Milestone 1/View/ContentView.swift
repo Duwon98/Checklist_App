@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
-    var checklist: [CheckListViewModle]
+    @State var checklist: [CheckListViewModle]
 
     
     var body: some View {

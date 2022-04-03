@@ -9,16 +9,32 @@ import SwiftUI
 
 //Master view
 struct ChecklistView: View {
-    var checklist: [CheckListViewModle]
+    @State var checklist: [CheckListViewModle]
     var body: some View {
         
-            List(checklist) {list in
-                CheckListRowView(checklist: list)
-
-            }.navigationTitle("CheckLists")
-                .toolbar {
-                    EditButton()
-                }
+//            List(checklist) {list in
+//                CheckListRowView(checklist: list)
+//
+//            }
+//            .onDelete(perform: delete)
+//            .navigationTitle("CheckLists")
+//            .toolbar {
+//                EditButton()
+//                }
+        
+        List{
+            ForEach(checklist){list in
+                Text(list.title)
+            }
+            .onDelete(perform: delete)
+        }
+        .navigationTitle("CheckLists")
+        .toolbar{
+            EditButton()
+        }
+    }
+    func delete(at offsets: IndexSet) {
+        checklist.remove(atOffsets: offsets)
     }
 }
 
@@ -32,24 +48,3 @@ struct MasterView_Previews: PreviewProvider {
 
 
 
-
-
-//List {
-//    ForEach(checklist) {list in
-//    Text(list.checklist.title)
-//}
-//.onDelete { checklist.remove(atOffsets: $0) }
-//
-//
-//}
-
-struct CheckListRowView: View {
-    @ObservedObject var checklist: CheckListViewModle
-    
-    var body: some View {
-        NavigationLink("\(checklist.title)"){
-            CheckListDetailView(list: checklist)
-                .navigationTitle(checklist.title)
-        }
-    }
-}

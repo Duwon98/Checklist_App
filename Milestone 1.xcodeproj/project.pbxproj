@@ -18,6 +18,7 @@
 		002B09F627E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B09F527E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift */; };
 		007BDD0927F18DF20095F220 /* CheckListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B0A0227E4272A0097C6AB /* CheckListModel.swift */; };
 		007BDD0A27F18E3F0095F220 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002B09DA27E426490097C6AB /* ContentView.swift */; };
+		00CAC43727F9818C003E159A /* CheckListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAC43627F9818C003E159A /* CheckListRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		002B09F327E4264B0097C6AB /* Milestone_1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone_1UITests.swift; sourceTree = "<group>"; };
 		002B09F527E4264B0097C6AB /* Milestone_1UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone_1UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		002B0A0227E4272A0097C6AB /* CheckListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListModel.swift; sourceTree = "<group>"; };
+		00CAC43627F9818C003E159A /* CheckListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				002B09DA27E426490097C6AB /* ContentView.swift */,
 				0020D4D127F6C4C80033A2F3 /* ChecklistView.swift */,
 				0020D4CF27F6C3410033A2F3 /* CheckListDetailView.swift */,
+				00CAC43627F9818C003E159A /* CheckListRowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				0020D4CE27F6BDCB0033A2F3 /* CheckListViewModel.swift in Sources */,
 				007BDD0927F18DF20095F220 /* CheckListModel.swift in Sources */,
 				007BDD0A27F18E3F0095F220 /* ContentView.swift in Sources */,
+				00CAC43727F9818C003E159A /* CheckListRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
