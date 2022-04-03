@@ -15,8 +15,12 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ChecklistView(checklist: checklist)
+
         }
-    } 
+        
+        
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
