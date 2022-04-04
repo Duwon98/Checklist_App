@@ -9,7 +9,7 @@ import SwiftUI
 
 //Master view
 struct ChecklistView: View {
-    @State var checklist: [CheckListViewModle]
+    @State var checklist: [CheckList]
     var body: some View {
 
             List{
@@ -40,7 +40,7 @@ struct ChecklistView: View {
 //        .onDelete { list.lists.remove(atOffsets: $0) }
     
     func add(){
-        checklist.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
+        checklist.append(CheckList(title: "Checklist"))
     }
 }
 struct MasterView_Previews: PreviewProvider {

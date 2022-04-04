@@ -12,9 +12,9 @@ struct Milestone_1App: App {
     var body: some Scene {
         WindowGroup {
             ContentView(checklist: [
-                CheckListViewModle(checklist: CheckList(title: "Hello1")),
-                CheckListViewModle(checklist: CheckList(title: "Hello2")),
-                CheckListViewModle(checklist: CheckList(title: "Hello3"))
+                CheckList(title: "Shinzo"),
+                CheckList(title: "Shinzo2"),
+                CheckList(title: "Shinzo3")
             ])
         }
     }

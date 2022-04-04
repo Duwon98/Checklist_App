@@ -8,25 +8,26 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    @ObservedObject var list: CheckListViewModle
+    @ObservedObject var list: CheckList
     @State var isEditMode: EditMode = .inactive
     var body: some View {
         VStack{
             if (self.isEditMode == .active)  {
                 HStack{
                     Text("✓    ")
-                    TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
+                    TextField((list.title), text:$list.title).navigationTitle(" ")
                 }
             }
             
-            List{
+            Form{
                 ForEach(list.lists, id: \.self){thing in
-                    HStack{
+//                    Text(thing)
                         if (self.isEditMode == .active)  {
 //                            Need to figure it out how to change the lists
+  
                         }
-                        Text(thing)
-                    }
+                }
+                    
 
                     
             }.toolbar{
@@ -45,12 +46,12 @@ struct CheckListDetailView: View {
 //        list.lists.remove(atOffsets: offsets)
 //    }
 }
-}
 
 
 
-struct CheckListDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        CheckListDetailView(list: CheckListViewModle(checklist: CheckList(title: "some list")))
-    }
-}
+//
+//struct CheckListDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CheckListDetailView(list: CheckListViewModle(checklist: CheckList(title: "some list")))
+//    }
+//}

@@ -19,7 +19,6 @@ class CheckListViewModle: Identifiable, ObservableObject {
         set { checklist.lists = newValue}
     }
     
-    
     init(checklist: CheckList){
         self.checklist = checklist
     }

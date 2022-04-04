@@ -9,10 +9,10 @@ import Combine
 import Foundation
 
 
-class CheckList: Identifiable {
-    var title: String
+class CheckList: Identifiable, ObservableObject {
+    @Published var title: String
 //    var lists: [String] = []
-    var lists = [
+    @Published var lists = [
     "Number1",
     "Number2",
     "Number3"
