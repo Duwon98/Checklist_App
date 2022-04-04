@@ -19,14 +19,14 @@ struct CheckListDetailView: View {
                 }
             }
             
-            Form{
-                ForEach(list.lists, id: \.self){thing in
-//                    Text(thing)
+            List{
+                ForEach(list.index, id: \.self){i in
                         if (self.isEditMode == .active)  {
-//                            Need to figure it out how to change the lists
-  
+                            TextField((list.lists[i]), text:$list.lists[i])
+                            
                         }
                 }
+
                     
 
                     

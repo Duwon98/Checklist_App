@@ -18,6 +18,13 @@ class CheckList: Identifiable, ObservableObject {
     "Number3"
     ]
     
+    var index = [0,1,2]
+
+//    
+//    func addList(name: String){
+//        
+//    }
+    
     init(title: String) {
         self.title = title
     }
