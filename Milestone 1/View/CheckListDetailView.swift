@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckList
+    @State var addString : String = ""
     @State var isEditMode: EditMode = .inactive
     var body: some View {
         VStack{
@@ -16,18 +17,38 @@ struct CheckListDetailView: View {
                 HStack{
                     Text("✓    ")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
+                    
                 }
             }
             
             List{
                 ForEach(list.index, id: \.self){i in
+                    HStack{
+                        
                         if (self.isEditMode == .active)  {
-                            TextField((list.lists[i]), text:$list.lists[i])
-                            
+                            Button("ㅡ", action: {
+                                list.deleteList(position: i)
+                            }  )
+//                            TextField((list.lists[i]), text:$list.lists[i])
                         }
+                        Text(list.lists[i])
+                    }
                 }
-
+                
                     
+                    if (self.isEditMode == .active){
+                        HStack{
+                        Button("+", action: {
+                            if (addString != "" ){
+                                list.addList(name: addString)
+                                addString = ""
+                            }
+                        })
+                        TextField(("Please put something"), text:$addString)
+                        }
+                    }
+            
+                
 
                     
             }.toolbar{
@@ -36,15 +57,25 @@ struct CheckListDetailView: View {
 
         }
 
+            
+
             }.navigationTitle(list.title)
         }
 
         
             
         
-//    func delete(at offsets: IndexSet) {
-//        list.lists.remove(atOffsets: offsets)
-//    }
+
+    
+    func add(_txt: String){
+        list.addList(name: _txt)
+    }
+    
+    func removeList(_n: Int){
+        list.deleteList(position: _n)
+    }
+    
+
 }
 
 
