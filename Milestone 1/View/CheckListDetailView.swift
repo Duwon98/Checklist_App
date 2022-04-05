@@ -10,6 +10,7 @@ import SwiftUI
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckList
     @State var addString : String = ""
+    @State var tick : Bool = false
     @State var isEditMode: EditMode = .inactive
     var body: some View {
         VStack{
@@ -17,24 +18,28 @@ struct CheckListDetailView: View {
                 HStack{
                     Text("✓    ")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
-                    
                 }
             }
             
             List{
                 ForEach(list.index, id: \.self){i in
                     HStack{
-                        
                         if (self.isEditMode == .active)  {
-                            Button("ㅡ", action: {
+                            Button("D", action: {
                                 list.deleteList(position: i)
-                            }  )
+                            }  ).background(Color.blue)
+                                .foregroundColor(Color.white)
+                            
+                            // **Button issue
+                            // **tickle and untickle
+                            // **reset button
+                            
 //                            TextField((list.lists[i]), text:$list.lists[i])
                         }
+                        
                         Text(list.lists[i])
                     }
                 }
-                
                     
                     if (self.isEditMode == .active){
                         HStack{
@@ -62,10 +67,6 @@ struct CheckListDetailView: View {
             }.navigationTitle(list.title)
         }
 
-        
-            
-        
-
     
     func add(_txt: String){
         list.addList(name: _txt)
@@ -73,6 +74,14 @@ struct CheckListDetailView: View {
     
     func removeList(_n: Int){
         list.deleteList(position: _n)
+    }
+    
+    func tickAndOff (){
+        if (tick){
+            tick = false
+        }else{
+            tick = true
+        }
     }
     
 
