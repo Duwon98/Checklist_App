@@ -13,6 +13,7 @@ class CheckList: Identifiable, ObservableObject {
     @Published var title: String
     @Published var lists = [String]()
     @Published var tickList = [Bool]()
+    @Published var previousTickList = [Bool]()
     var index = [Int]()
     var maxIndex = -1
     
@@ -21,8 +22,8 @@ class CheckList: Identifiable, ObservableObject {
       self.maxIndex += 1
       self.index.append(self.maxIndex)
       self.lists.append(name)
-    self.tickList.append(false)
-    
+      self.tickList.append(false)
+      self.previousTickList.append(false)
     }
     
     func deleteList(position: Int){
@@ -30,6 +31,7 @@ class CheckList: Identifiable, ObservableObject {
         self.index.removeLast()
         self.lists.remove(at: position)
         self.tickList.remove(at: position)
+        self.previousTickList.remove(at: position)
     }
     
     func tick(position: Int){
@@ -49,6 +51,7 @@ class CheckList: Identifiable, ObservableObject {
     func updateUndo(previousOne: [Bool]){
         self.tickList = previousOne
     }
+    
     
     init(title: String) {
         self.title = title

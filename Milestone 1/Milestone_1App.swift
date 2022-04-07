@@ -11,11 +11,7 @@ import SwiftUI
 struct Milestone_1App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(checklist: [
-                CheckList(title: "Shinzo"),
-                CheckList(title: "Shinzo2"),
-                CheckList(title: "Shinzo3")
-            ])
+            ContentView(checklist: [])
         }
     }
 }

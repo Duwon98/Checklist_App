@@ -19,15 +19,15 @@ struct CheckListDetailView: View {
                 HStack{
                     Text("📝")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
-                    if (!reSetUndo){
-                        Button("Reset", action: {
-                            reSet()
-                        })
-                    }else{
-                        Button("Undo", action: {
-                            unDo()
-                        })
-                    }
+//                    if (!reSetUndo){
+//                        Button("Reset", action: {
+//                            reSet()
+//                        })
+//                    }else{
+//                        Button("Undo", action: {
+//                            unDo()
+//                        })
+//                    }
                     
                     
                 }
@@ -37,7 +37,7 @@ struct CheckListDetailView: View {
                 ForEach(list.index, id: \.self){i in
                     HStack{
                         if (self.isEditMode == .active)  {
-                            Button("D", action: {
+                            Button("⊖", action: {
                                 list.deleteList(position: i)
                             }  )
                         
@@ -67,12 +67,32 @@ struct CheckListDetailView: View {
                         }
                     }
             }.toolbar{
-                    ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
-                         EditButton()
-                        .environment(\.editMode, self.$isEditMode)
-                        
-                        
-                     }
+//                    ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
+//                         EditButton()
+//                        .environment(\.editMode, self.$isEditMode)
+//                     }
+//                if (self.isEditMode == .active){
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        if (self.isEditMode == .active){
+                            if (!reSetUndo){
+                                Button("Reset", action: {
+                                    reSet()
+                                })
+                            }else{
+                                Button("Undo", action: {
+                                    unDo()
+                                })
+                            }
+                        }
+                    }
+//                }
+                
+                    
+                ToolbarItem(placement: .navigationBarTrailing){
+                    EditButton()
+                    .environment(\.editMode, self.$isEditMode)
+                    }
+                
 
         }
             }.navigationTitle(list.title)
@@ -92,13 +112,14 @@ struct CheckListDetailView: View {
     
     
     func reSet(){
-        copyCheckedList = list.returnTickList()
+//        copyCheckedList = list.returnTickList()
+        list.previousTickList = list.returnTickList()
         list.removeTickList()
         reSetUndo = true
     }
     
     func unDo(){
-        list.updateUndo(previousOne: copyCheckedList)
+        list.updateUndo(previousOne: list.previousTickList)
         reSetUndo = false
     }
     
