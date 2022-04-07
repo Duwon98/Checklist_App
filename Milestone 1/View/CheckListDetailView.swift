@@ -16,8 +16,9 @@ struct CheckListDetailView: View {
         VStack{
             if (self.isEditMode == .active)  {
                 HStack{
-                    Text("✓    ")
+                    Text("📝")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
+                    
                 }
             }
             
@@ -27,17 +28,23 @@ struct CheckListDetailView: View {
                         if (self.isEditMode == .active)  {
                             Button("D", action: {
                                 list.deleteList(position: i)
-                            }  ).background(Color.blue)
-                                .foregroundColor(Color.white)
+                            }  )
                             
                             // **Button issue
                             // **tickle and untickle
                             // **reset button
-                            
-//                            TextField((list.lists[i]), text:$list.lists[i])
-                        }
                         
+//                            TextField((list.lists[i]), text:$list.lists[i])
+                        }else{
+                            Button(" ", action: {
+                                list.tick(position: i)
+                            })
+                        }
                         Text(list.lists[i])
+                        if(list.tickList[i]){
+                            Spacer()
+                            Text("✓")
+                        }
                     }
                 }
                     
