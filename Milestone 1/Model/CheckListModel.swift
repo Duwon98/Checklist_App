@@ -36,6 +36,20 @@ class CheckList: Identifiable, ObservableObject {
         self.tickList[position] = !(self.tickList[position])
     }
     
+    func returnTickList() -> [Bool]{
+        return tickList
+    }
+    
+    func removeTickList() {
+        for i in 0 ..< tickList.count{
+            self.tickList[i] = false
+        }
+    }
+    
+    func updateUndo(previousOne: [Bool]){
+        self.tickList = previousOne
+    }
+    
     init(title: String) {
         self.title = title
     }

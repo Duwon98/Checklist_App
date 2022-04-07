@@ -10,14 +10,25 @@ import SwiftUI
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckList
     @State var addString : String = ""
-    @State var tick : Bool = false
     @State var isEditMode: EditMode = .inactive
+    @State var copyCheckedList = [Bool]()
+    @State var reSetUndo = false
     var body: some View {
         VStack{
             if (self.isEditMode == .active)  {
                 HStack{
                     Text("📝")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
+                    if (!reSetUndo){
+                        Button("Reset", action: {
+                            reSet()
+                        })
+                    }else{
+                        Button("Undo", action: {
+                            unDo()
+                        })
+                    }
+                    
                     
                 }
             }
@@ -29,10 +40,6 @@ struct CheckListDetailView: View {
                             Button("D", action: {
                                 list.deleteList(position: i)
                             }  )
-                            
-                            // **Button issue
-                            // **tickle and untickle
-                            // **reset button
                         
 //                            TextField((list.lists[i]), text:$list.lists[i])
                         }else{
@@ -59,19 +66,17 @@ struct CheckListDetailView: View {
                         TextField(("Please put something"), text:$addString)
                         }
                     }
-            
-                
-
-                    
             }.toolbar{
-                EditButton()
-                .environment(\.editMode, self.$isEditMode)
+                    ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
+                         EditButton()
+                        .environment(\.editMode, self.$isEditMode)
+                        
+                        
+                     }
 
         }
-
-            
-
             }.navigationTitle(list.title)
+            
         }
 
     
@@ -83,15 +88,20 @@ struct CheckListDetailView: View {
         list.deleteList(position: _n)
     }
     
-    func tickAndOff (){
-        if (tick){
-            tick = false
-        }else{
-            tick = true
-        }
+
+    
+    
+    func reSet(){
+        copyCheckedList = list.returnTickList()
+        list.removeTickList()
+        reSetUndo = true
     }
     
-
+    func unDo(){
+        list.updateUndo(previousOne: copyCheckedList)
+        reSetUndo = false
+    }
+    
 }
 
 
