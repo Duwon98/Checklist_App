@@ -29,19 +29,16 @@ struct ChecklistView: View {
                      Button("Add", action: add)
                  }
             }
-        
-
     }
     
     func delete(at offsets: IndexSet) {
         checklist.remove(atOffsets: offsets)
     }
     
-//        .onDelete { list.lists.remove(atOffsets: $0) }
-    
     func add(){
         checklist.append(CheckList(title: "Checklist"))
     }
+    
 }
 struct MasterView_Previews: PreviewProvider {
     static var previews: some View {

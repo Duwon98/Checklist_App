@@ -15,33 +15,25 @@ struct CheckListDetailView: View {
     @State var reSetUndo = false
     var body: some View {
         VStack{
+            // If you are on the edit mode -> you can edit the navigation title
             if (self.isEditMode == .active)  {
                 HStack{
                     Text("📝")
                     TextField((list.title), text:$list.title).navigationTitle(" ")
-//                    if (!reSetUndo){
-//                        Button("Reset", action: {
-//                            reSet()
-//                        })
-//                    }else{
-//                        Button("Undo", action: {
-//                            unDo()
-//                        })
-//                    }
-                    
-                    
                 }
             }
-            
+            // Listing the lists
             List{
                 ForEach(list.index, id: \.self){i in
                     HStack{
+                        // if you are on the edit mode -> display the delete button
                         if (self.isEditMode == .active)  {
                             Button("⊖", action: {
                                 list.deleteList(position: i)
                             }  )
-                        
 //                            TextField((list.lists[i]), text:$list.lists[i])
+                            
+                            // if you are not on the edit mode -> you can tick
                         }else{
                             Button(" ", action: {
                                 list.tick(position: i)
@@ -54,7 +46,7 @@ struct CheckListDetailView: View {
                         }
                     }
                 }
-                    
+                    // if you are on the edit mode -> display the add list row
                     if (self.isEditMode == .active){
                         HStack{
                         Button("+", action: {
@@ -67,13 +59,10 @@ struct CheckListDetailView: View {
                         }
                     }
             }.toolbar{
-//                    ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
-//                         EditButton()
-//                        .environment(\.editMode, self.$isEditMode)
-//                     }
-//                if (self.isEditMode == .active){
                     ToolbarItem(placement: .navigationBarTrailing){
+                        // if you are on the edit mode -> display the reset button
                         if (self.isEditMode == .active){
+                        // everytime if you click the reset button it will switch to Undo button
                             if (!reSetUndo){
                                 Button("Reset", action: {
                                     reSet()
@@ -85,34 +74,16 @@ struct CheckListDetailView: View {
                             }
                         }
                     }
-//                }
-                
-                    
                 ToolbarItem(placement: .navigationBarTrailing){
                     EditButton()
                     .environment(\.editMode, self.$isEditMode)
                     }
-                
-
         }
             }.navigationTitle(list.title)
             
         }
-
-    
-    func add(_txt: String){
-        list.addList(name: _txt)
-    }
-    
-    func removeList(_n: Int){
-        list.deleteList(position: _n)
-    }
-    
-
-    
     
     func reSet(){
-//        copyCheckedList = list.returnTickList()
         list.previousTickList = list.returnTickList()
         list.removeTickList()
         reSetUndo = true

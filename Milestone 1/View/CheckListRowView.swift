@@ -13,9 +13,6 @@ struct CheckListRowView: View {
     var body: some View {
         NavigationLink("\(checklist.title)"){
             CheckListDetailView(list: checklist)
-//                .navigationTitle(checklist.title)
-                
-                
         }
     }
 }
