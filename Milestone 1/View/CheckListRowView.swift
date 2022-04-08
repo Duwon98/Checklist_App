@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CheckListRowView: View {
-    @ObservedObject var checklist: CheckList
+    @ObservedObject var checklist: CheckListViewModle
     
     var body: some View {
-        NavigationLink("\(checklist.title)"){
+        NavigationLink("\(checklist.checklist.title)"){
             CheckListDetailView(list: checklist)
         }
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    @ObservedObject var list: CheckList
+    @ObservedObject var list: CheckListViewModle
     @State var addString : String = ""
     @State var isEditMode: EditMode = .inactive
     @State var copyCheckedList = [Bool]()
@@ -19,7 +19,7 @@ struct CheckListDetailView: View {
             if (self.isEditMode == .active)  {
                 HStack{
                     Text("📝")
-                    TextField((list.title), text:$list.title).navigationTitle(" ")
+                    TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
                 }
             }
             // Listing the lists
@@ -39,7 +39,7 @@ struct CheckListDetailView: View {
                                 list.tick(position: i)
                             })
                         }
-                        Text(list.lists[i])
+                        Text(list.checklist.lists[i])
                         if(list.tickList[i]){
                             Spacer()
                             Text("✓")
@@ -79,7 +79,7 @@ struct CheckListDetailView: View {
                     .environment(\.editMode, self.$isEditMode)
                     }
         }
-            }.navigationTitle(list.title)
+        }.navigationTitle(list.checklist.title)
             
         }
     
