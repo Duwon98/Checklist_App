@@ -6,17 +6,17 @@
 //
 
 import Foundation
-//View Model
-class CheckListViewModle: Identifiable, ObservableObject, Codable {
-    var checklist: CheckList
+
+class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
+    @Published var checklist: CheckList
     // class Checklist
-    var tickList = [Bool]()
+    @Published var tickList = [Bool]()
     // each checklist have tickList array (False is unticked)
-    var previousTickList = [Bool]()
+    @Published var previousTickList = [Bool]()
     // To save previousTickList(undo function)
-    var index = [Int]()
+    @Published var index = [Int]()
     // To present the checklist's list
-    var maxIndex = -1
+    @Published var maxIndex = -1
     // max index of checklist's array
     
 //    var checklist: CheckList{
@@ -63,4 +63,31 @@ class CheckListViewModle: Identifiable, ObservableObject, Codable {
     init(checklist: CheckList){
         self.checklist = checklist
     }
+    
+    enum CodingKeys:String, CodingKey, RawRepresentable{
+        case checklist
+        case tickList
+        case previousTickList
+        case index
+        case maxIndex
+    }
+    
+    required init(from decoder: Decoder) throws{
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        checklist = try container.decode(CheckList.self, forKey: .checklist)
+        tickList = try container.decode([Bool].self, forKey: .tickList)
+        previousTickList = try container.decode([Bool].self, forKey: .previousTickList)
+        index = try container.decode([Int].self, forKey: .index)
+        maxIndex = try container.decode(Int.self, forKey: .maxIndex)
+     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(checklist, forKey: .checklist)
+        try container.encode(tickList, forKey: .tickList)
+        try container.encode(previousTickList, forKey: .previousTickList)
+        try container.encode(index, forKey: .index)
+        try container.encode(maxIndex, forKey: .maxIndex)
+    }
 }
+

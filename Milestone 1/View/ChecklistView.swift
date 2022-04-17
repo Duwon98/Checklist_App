@@ -42,34 +42,17 @@ struct ChecklistView: View {
     
     func delete(at offsets: IndexSet) {
         checklist.remove(atOffsets: offsets)
-        save()
+        Milestone_1App.save()
     }
     
     func add(){
         checklist.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
-        save()
+        Milestone_1App.save()
     }
     
-    var fileURL : URL {
-        let fileName = "checklist.json"
-        let fm = FileManager.default
-        guard let documentDir = fm.urls(for: .documentDirectory, in: .userDomainMask).first else{return URL(fileURLWithPath: "/") }
-        let fileURL = documentDir.appendingPathComponent(fileName)
-        return fileURL
-    }
+
     
-    func save(){
-        do {
-            let data = try JSONEncoder().encode(checklist)
-           
-            try data.write(to: fileURL , options: .atomic)
-            guard let dataString = String(data: data, encoding: .utf8)else{return}
-            print(dataString)
-        } catch{
-            print("Could not write file : \(error)")
-        }
-    }
-    
+
 
     
 }

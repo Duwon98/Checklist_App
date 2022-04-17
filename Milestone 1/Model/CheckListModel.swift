@@ -8,16 +8,32 @@
 import Combine
 import Foundation
 
-// Model
-class CheckList: Identifiable, ObservableObject, Codable {
-    var title: String
+
+class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
+    @Published var title: String
     //Checklist title
-    var lists = [String]()
+    @Published var lists = [String]()
     //Checklist's list (it is array)
     init(title: String) {
         self.title = title
     }
+    
+    enum CodingKeys: String, CodingKey, RawRepresentable{
+        case title
+        case lists
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: .title)
+        lists = try container.decode([String].self, forKey: .lists)
+    }
+    
+    func encode(to encoder: Encoder) throws{
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(lists, forKey: .lists)
+    }
 }
-
 
 
