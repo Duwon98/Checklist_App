@@ -7,18 +7,23 @@
 
 import Foundation
 //View Model
-class CheckListViewModle: Identifiable, ObservableObject {
-    @Published var checklist: CheckList
+class CheckListViewModle: Identifiable, ObservableObject, Codable {
+    var checklist: CheckList
     // class Checklist
-    @Published var tickList = [Bool]()
+    var tickList = [Bool]()
     // each checklist have tickList array (False is unticked)
-    @Published var previousTickList = [Bool]()
+    var previousTickList = [Bool]()
     // To save previousTickList(undo function)
     var index = [Int]()
     // To present the checklist's list
     var maxIndex = -1
     // max index of checklist's array
-
+    
+//    var checklist: CheckList{
+//        get { checklist}
+//        set { checklist = newValue}
+//    }
+    
     // To add list in checklist, it get title of the list
     func addList(name: String){
       self.maxIndex += 1

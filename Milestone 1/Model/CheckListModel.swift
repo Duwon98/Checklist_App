@@ -9,10 +9,10 @@ import Combine
 import Foundation
 
 // Model
-class CheckList: Identifiable, ObservableObject {
-    @Published var title: String
+class CheckList: Identifiable, ObservableObject, Codable {
+    var title: String
     //Checklist title
-    @Published var lists = [String]()
+    var lists = [String]()
     //Checklist's list (it is array)
     init(title: String) {
         self.title = title
