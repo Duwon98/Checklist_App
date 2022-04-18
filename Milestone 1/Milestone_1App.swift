@@ -8,16 +8,23 @@ import SwiftUI
 
 @main
 struct Milestone_1App: App {
+    static var checklistExport = [CheckListViewModle]()
     static var checklist : [CheckListViewModle] = {
-//        guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
-//              let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
+        guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
+              let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
+            
             return [CheckListViewModle]()
-//        }
-//        return checklist
+        }
+        checklistExport = checklist
+        return checklist
     }()
+
     var body: some Scene {
         WindowGroup {
-            ContentView(checklist: Milestone_1App.checklist)
+            ContentView(checklist: Binding(get: {Milestone_1App.checklist}, set: {
+                newValue in
+                Milestone_1App.checklist = newValue
+            }))
         }
     }
     

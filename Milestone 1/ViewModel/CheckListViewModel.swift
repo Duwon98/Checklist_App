@@ -89,5 +89,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         try container.encode(index, forKey: .index)
         try container.encode(maxIndex, forKey: .maxIndex)
     }
+    
+
 }
 

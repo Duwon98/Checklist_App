@@ -9,18 +9,13 @@ import SwiftUI
 
 //Master view
 struct ChecklistView: View {
-    @State var checklist: [CheckListViewModle]
-//    @State var checklist: [CheckListViewModle] = {
-//        guard let data = try? Data(contentsOf: ChecklistView.fileURL),
-//              let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data)else{
-//            return checklist: [CheckListViewModle]
-//        }
-//        return checklist
-//    }
-    var body: some View {
+    @Binding var checklist: [CheckListViewModle]
+    @State var checklistExport = Milestone_1App.checklistExport
+    
 
+    var body: some View {
             List{
-                ForEach(checklist){list in
+                ForEach(checklistExport){list in
                     CheckListRowView(checklist: list)
                 }
                 .onDelete(perform: delete)
@@ -41,25 +36,28 @@ struct ChecklistView: View {
     }
     
     func delete(at offsets: IndexSet) {
-        checklist.remove(atOffsets: offsets)
+        checklistExport.remove(atOffsets: offsets)
+        checklist = checklistExport
+
         Milestone_1App.save()
     }
     
     func add(){
-        checklist.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
+        checklistExport.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
+        checklist = checklistExport
+
         Milestone_1App.save()
     }
     
-
-    
-
-
-    
-}
-struct MasterView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChecklistView(checklist: [])
+    func initUpdate(){
+        checklistExport = checklist
     }
+    
 }
-
-
+//struct MasterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChecklistView(checklist: [])
+//    }
+//}
+//
+//
