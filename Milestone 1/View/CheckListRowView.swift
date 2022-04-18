@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CheckListRowView: View {
-    @ObservedObject var checklist: CheckListViewModle
+    @Binding var checklist: CheckListViewModle
     
     var body: some View {
         NavigationLink("\(checklist.checklist.title)"){
-            CheckListDetailView(list: checklist)
+            CheckListDetailView(list: $checklist)
         }
     }
 }

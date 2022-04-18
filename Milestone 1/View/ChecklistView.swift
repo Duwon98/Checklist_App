@@ -15,7 +15,7 @@ struct ChecklistView: View {
 
     var body: some View {
             List{
-                ForEach(checklistExport){list in
+                ForEach($checklistExport){list in
                     CheckListRowView(checklist: list)
                 }
                 .onDelete(perform: delete)

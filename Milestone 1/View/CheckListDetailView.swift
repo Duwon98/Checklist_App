@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    @ObservedObject var list: CheckListViewModle
+    @Binding var list: CheckListViewModle
     @State var addString : String = ""
-    @State var isEditMode: EditMode = .inactive
+    @Environment(\.editMode) var mode
     @State var copyCheckedList = [Bool]()
     @State var reSetUndo = false
+    
     var body: some View {
         VStack{
             // If you are on the edit mode -> you can edit the navigation title
-            if (self.isEditMode == .active)  {
+            if self.mode?.wrappedValue.isEditing ?? true  {
                 HStack{
                     Text("📝")
                     TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
@@ -27,7 +28,7 @@ struct CheckListDetailView: View {
                 ForEach(list.index, id: \.self){i in
                     HStack{
                         // if you are on the edit mode -> display the delete button
-                        if (self.isEditMode == .active)  {
+                        if self.mode?.wrappedValue.isEditing ?? true  {
                             Button("⊖", action: {
                                 list.deleteList(position: i)
                             }  )
@@ -46,8 +47,10 @@ struct CheckListDetailView: View {
                         }
                     }
                 }
+                .onMove(perform: move)
+                
                     // if you are on the edit mode -> display the add list row
-                    if (self.isEditMode == .active){
+                if self.mode?.wrappedValue.isEditing ?? true{
                         HStack{
                         Button("+", action: {
                             if (addString != "" ){
@@ -61,7 +64,7 @@ struct CheckListDetailView: View {
             }.toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
                         // if you are on the edit mode -> display the reset button
-                        if (self.isEditMode == .active){
+                        if self.mode?.wrappedValue.isEditing ?? true{
                         // everytime if you click the reset button it will switch to Undo button
                             if (!reSetUndo){
                                 Button("Reset", action: {
@@ -76,7 +79,7 @@ struct CheckListDetailView: View {
                     }
                 ToolbarItem(placement: .navigationBarTrailing){
                     EditButton()
-                    .environment(\.editMode, self.$isEditMode)
+
                     }
         }
         }.navigationTitle(list.checklist.title)
@@ -93,6 +96,12 @@ struct CheckListDetailView: View {
         list.updateUndo(previousOne: list.previousTickList)
         reSetUndo = false
     }
+    
+    func move(from source: IndexSet, to destination:Int) {
+        list.checklist.lists.move(fromOffsets: source, toOffset: destination)
+        
+    }
+    
     
 }
 
