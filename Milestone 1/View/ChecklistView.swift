@@ -19,6 +19,7 @@ struct ChecklistView: View {
                     CheckListRowView(checklist: list)
                 }
                 .onDelete(perform: delete)
+                .onMove(perform: move)
             }
             .navigationTitle("CheckLists")
             .toolbar{
@@ -38,19 +39,19 @@ struct ChecklistView: View {
     func delete(at offsets: IndexSet) {
         checklistExport.remove(atOffsets: offsets)
         checklist = checklistExport
-
         Milestone_1App.save()
     }
     
     func add(){
         checklistExport.append(CheckListViewModle(checklist: CheckList(title: "Checklist")))
         checklist = checklistExport
-
         Milestone_1App.save()
     }
     
-    func initUpdate(){
-        checklistExport = checklist
+    func move(from source: IndexSet, to destination:Int) {
+        checklistExport.move(fromOffsets: source, toOffset: destination)
+        checklist = checklistExport
+        Milestone_1App.save()
     }
     
 }
