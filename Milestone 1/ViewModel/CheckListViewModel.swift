@@ -94,6 +94,10 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         
     }
     
+    func save(){
+        Milestone_1App.save()
+    }
+    
     
     
     init(checklist: CheckList){

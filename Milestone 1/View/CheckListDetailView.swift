@@ -13,11 +13,13 @@ struct CheckListDetailView: View {
     @Environment(\.editMode) var mode
     @State var copyCheckedList = [Bool]()
     @State var reSetUndo = false
+    @State var saveing = false
     
     var body: some View {
         VStack{
             // If you are on the edit mode -> you can edit the navigation title
             if self.mode?.wrappedValue.isEditing ?? true  {
+
                 HStack{
                     Text("📝")
                     TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
