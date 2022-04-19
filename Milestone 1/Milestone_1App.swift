@@ -10,14 +10,14 @@ import SwiftUI
 struct Milestone_1App: App {
     static var checklistExport = [CheckListViewModle]()
     static var checklist : [CheckListViewModle] = {
-        guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
-              let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
-            
+//        guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
+//              let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
+
             return [CheckListViewModle]()
-        }
-        checklistExport = checklist
-        return checklist
-    }()
+        }()
+//        checklistExport = checklist
+//        return checklist
+//    }()
 
     var body: some Scene {
         WindowGroup {

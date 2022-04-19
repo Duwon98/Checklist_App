@@ -28,18 +28,9 @@ struct CheckListDetailView: View {
                 ForEach(list.index, id: \.self){i in
                     HStack{
                         // if you are on the edit mode -> display the delete button
-                        if self.mode?.wrappedValue.isEditing ?? true  {
-                            Button("⊖", action: {
-                                list.deleteList(position: i)
-                            }  )
-//                            TextField((list.lists[i]), text:$list.lists[i])
-                            
-                            // if you are not on the edit mode -> you can tick
-                        }else{
-                            Button(" ", action: {
-                                list.tick(position: i)
-                            })
-                        }
+                        Button(" ", action: {
+                            list.tick(position: i)
+                        })
                         Text(list.checklist.lists[i])
                         if(list.tickList[i]){
                             Spacer()
@@ -48,11 +39,12 @@ struct CheckListDetailView: View {
                     }
                 }
                 .onMove(perform: move)
+                .onDelete(perform: delete)
                 
                     // if you are on the edit mode -> display the add list row
-                if self.mode?.wrappedValue.isEditing ?? true{
+//                if self.mode?.wrappedValue.isEditing ?? true{
                         HStack{
-                        Button("+", action: {
+                        Button("Add", action: {
                             if (addString != "" ){
                                 list.addList(name: addString)
                                 addString = ""
@@ -60,7 +52,7 @@ struct CheckListDetailView: View {
                         })
                         TextField(("Please put something"), text:$addString)
                         }
-                    }
+//                    }
             }.toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
                         // if you are on the edit mode -> display the reset button
@@ -100,6 +92,26 @@ struct CheckListDetailView: View {
     func move(from source: IndexSet, to destination:Int) {
         list.checklist.lists.move(fromOffsets: source, toOffset: destination)
         
+    }
+    
+    func delete(at offsets: IndexSet) {
+//        list.checklist.lists.remove(atOffsets: offsets)
+        let index = offsets.endIndex.description
+        let position = index.index(index.startIndex, offsetBy: 6)
+        var Num : Int
+        Num = Int(index[position].description) ?? 10
+        list.deleteList(position: Num-1)
+        Milestone_1App.save()
+        
+        
+        
+        
+       
+        
+        
+
+        //index 1 in a range of 0..<1 [range #1/1]
+//        Milestone_1App.save()
     }
     
     
