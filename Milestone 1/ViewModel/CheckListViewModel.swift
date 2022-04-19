@@ -31,6 +31,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
       self.checklist.lists.append(name)
       self.tickList.append(false)
       self.previousTickList.append(false)
+      Milestone_1App.save()
     }
     
     // To delete list in checklist, it get position of the list
@@ -44,6 +45,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     // get position of the list, if it's false it will switch to true otherwise to false. False is unticked
     func tick(position: Int){
         self.tickList[position] = !(self.tickList[position])
+        Milestone_1App.save()
     }
     // it will return tickList to save a current ticklist for Undo function
     func returnTickList() -> [Bool]{
@@ -54,11 +56,45 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         for i in 0 ..< tickList.count{
             self.tickList[i] = false
         }
+        Milestone_1App.save()
     }
     //  it will switch current tickList to previousOne
     func updateUndo(previousOne: [Bool]){
         self.tickList = previousOne
     }
+    
+    // It will change change between two list values
+    func moveIndex(from: Int, to: Int){
+        // sometimes Swift index 0 output 1, index 1 output 0.
+        // In order to fix the issues
+        var f : Int, t : Int
+        f = from
+        t = to
+        
+        if (f == -1){
+            f += 1
+        }
+        
+        if (t == -1){
+            t += 1
+        }
+        
+        var temList : String
+        temList = self.checklist.lists[f]
+        
+        //switch the values
+        self.checklist.lists.remove(at: f)
+        self.checklist.lists.insert(temList, at: t)
+        
+        //shiwch ticklist
+        var tick : Bool
+        tick = self.tickList[f]
+        self.tickList.remove(at: f)
+        self.tickList.insert(tick, at: t)
+        
+    }
+    
+    
     
     init(checklist: CheckList){
         self.checklist = checklist

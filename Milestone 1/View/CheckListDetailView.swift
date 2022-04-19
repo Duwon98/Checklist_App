@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    @Binding var list: CheckListViewModle
+    @ObservedObject var list: CheckListViewModle
     @State var addString : String = ""
     @Environment(\.editMode) var mode
     @State var copyCheckedList = [Bool]()
@@ -21,6 +21,7 @@ struct CheckListDetailView: View {
                 HStack{
                     Text("📝")
                     TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
+                    
                 }
             }
             // Listing the lists
@@ -43,15 +44,15 @@ struct CheckListDetailView: View {
                 
                     // if you are on the edit mode -> display the add list row
 //                if self.mode?.wrappedValue.isEditing ?? true{
-                        HStack{
-                        Button("Add", action: {
-                            if (addString != "" ){
-                                list.addList(name: addString)
-                                addString = ""
-                            }
-                        })
-                        TextField(("Please put something"), text:$addString)
-                        }
+                HStack{
+                Button("Add", action: {
+                    if (addString != "" ){
+                        list.addList(name: addString)
+                        addString = ""
+                    }
+                })
+                TextField(("Please put something"), text:$addString)
+                }
 //                    }
             }.toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
@@ -82,15 +83,23 @@ struct CheckListDetailView: View {
         list.previousTickList = list.returnTickList()
         list.removeTickList()
         reSetUndo = true
+        Milestone_1App.save()
     }
     
     func unDo(){
         list.updateUndo(previousOne: list.previousTickList)
         reSetUndo = false
+        Milestone_1App.save()
     }
     
     func move(from source: IndexSet, to destination:Int) {
-        list.checklist.lists.move(fromOffsets: source, toOffset: destination)
+        let index = source.endIndex.description
+        let position = index.index(index.startIndex, offsetBy: 6)
+        var from : Int
+        from = Int(index[position].description) ?? 10
+        list.moveIndex(from: from-1, to: destination-1)
+        Milestone_1App.save()
+
         
     }
     
@@ -98,10 +107,11 @@ struct CheckListDetailView: View {
 //        list.checklist.lists.remove(atOffsets: offsets)
         let index = offsets.endIndex.description
         let position = index.index(index.startIndex, offsetBy: 6)
-        var Num : Int
-        Num = Int(index[position].description) ?? 10
-        list.deleteList(position: Num-1)
+        var num : Int
+        num = Int(index[position].description) ?? 10
+        list.deleteList(position: num-1)
         Milestone_1App.save()
+        
         
         
         
@@ -110,8 +120,7 @@ struct CheckListDetailView: View {
         
         
 
-        //index 1 in a range of 0..<1 [range #1/1]
-//        Milestone_1App.save()
+
     }
     
     
