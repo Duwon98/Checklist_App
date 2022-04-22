@@ -13,9 +13,12 @@ struct Milestone_1App: App {
         guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
               let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
 
+            ContentView.isDataLoading = false
             return [CheckListViewModle]()
         }
         checklistExport = checklist
+        ContentView.isDataLoading = false
+    
         return checklist
     }()
 

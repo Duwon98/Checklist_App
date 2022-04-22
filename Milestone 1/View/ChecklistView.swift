@@ -12,7 +12,6 @@ struct ChecklistView: View {
     @Binding var checklist: [CheckListViewModle]
     @State var checklistExport = Milestone_1App.checklistExport
     
-
     var body: some View {
             List{
                 ForEach(checklistExport){list in
@@ -54,6 +53,7 @@ struct ChecklistView: View {
         Milestone_1App.save()
     }
     
+
 }
 //struct MasterView_Previews: PreviewProvider {
 //    static var previews: some View {

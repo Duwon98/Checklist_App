@@ -6,20 +6,23 @@
 //
 
 import SwiftUI
+import UIKit
 
 
 struct ContentView: View {
     @Binding var checklist: [CheckListViewModle]
-
+    static var isDataLoading = true
     
     var body: some View {
+        LoadingView(isShowing: ContentView.isDataLoading) {
         NavigationView {
             ChecklistView(checklist: $checklist)
-
+            
+            
         }
-    }
+            }
+                }
     
-
 }
 
 //struct ContentView_Previews: PreviewProvider {

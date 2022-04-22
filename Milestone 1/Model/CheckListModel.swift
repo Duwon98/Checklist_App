@@ -8,7 +8,8 @@
 import Combine
 import Foundation
 
-
+///  <#Description#>
+///  It is a Model Class which has Title and List(Array) properties
 class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
     @Published var title: String
     //Checklist title

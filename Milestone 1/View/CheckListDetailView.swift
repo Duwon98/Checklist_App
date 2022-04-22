@@ -19,10 +19,12 @@ struct CheckListDetailView: View {
         VStack{
             // If you are on the edit mode -> you can edit the navigation title
             if self.mode?.wrappedValue.isEditing ?? true  {
-
                 HStack{
                     Text("📝")
-                    TextField((list.checklist.title), text:$list.checklist.title).navigationTitle(" ")
+                    TextField((list.checklist.title), text:$list.checklist.title,
+                    onCommit: {
+                        Milestone_1App.save()
+                    }).navigationTitle(" ")
 
                 }
             }
@@ -39,7 +41,9 @@ struct CheckListDetailView: View {
                         
                     // If it's edit mode, you can also edit the list
                     if self.mode?.wrappedValue.isEditing ?? true  {
-                        TextField((list.checklist.lists[i]), text:$list.checklist.lists[i])
+                        TextField((list.checklist.lists[i]), text:$list.checklist.lists[i],  onCommit: {
+                            Milestone_1App.save()
+                        })
                     }else{
                         Text(list.checklist.lists[i])
                     }
