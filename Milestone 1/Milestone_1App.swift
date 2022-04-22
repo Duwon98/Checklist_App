@@ -8,29 +8,49 @@ import SwiftUI
 
 @main
 struct Milestone_1App: App {
+
+    @State private var _isLoading: Bool = true
     static var checklistExport = [CheckListViewModle]()
     static var checklist : [CheckListViewModle] = {
         guard let data = try? Data(contentsOf: Milestone_1App.fileURL),
               let checklist = try? JSONDecoder().decode([CheckListViewModle].self, from: data) else{
 
-            ContentView.isDataLoading = false
             return [CheckListViewModle]()
         }
         checklistExport = checklist
-        ContentView.isDataLoading = false
-    
         return checklist
     }()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(checklist: Binding(get: {Milestone_1App.checklist}, set: {
-                newValue in
-                Milestone_1App.checklist = newValue
-            }))
+            if _isLoading{
+                ZStack(alignment: .center){
+                    Color(.systemBackground)
+                        .ignoresSafeArea()
+                    
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                }.onAppear { loadingCall() }
+            }
+            else{
+                ContentView(checklist: Binding(get: {Milestone_1App.checklist}, set: {
+                    newValue in
+                    Milestone_1App.checklist = newValue
+                }))
+            }
+            
+
+
         }
     }
     
+    func loadingCall(){
+//        _isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            _isLoading = false
+        }
+            }
+
 
     static var fileURL : URL {
         let fileName = "checklist.json"

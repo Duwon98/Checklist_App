@@ -10,20 +10,38 @@ import UIKit
 
 
 struct ContentView: View {
+//    @State private var _isLoading: Bool = false
     @Binding var checklist: [CheckListViewModle]
-    static var isDataLoading = true
+//    @State private var isDataLoading = true
     
     var body: some View {
-        LoadingView(isShowing: ContentView.isDataLoading) {
+        
         NavigationView {
             ChecklistView(checklist: $checklist)
             
-            
         }
+        
+//        if _isLoading{
+//            ZStack{
+//                Color(.systemBackground)
+//                    .ignoresSafeArea()
+//            }
+//
+//            ProgressView()
+//                .progressViewStyle(CircularProgressViewStyle(tint: .black))
+//        }
+        
+
             }
-                }
-    
-}
+//func loadingCall(){
+//    _isLoading = true
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//        _isLoading = false
+//    }
+//        }
+                    }
+
+
 
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

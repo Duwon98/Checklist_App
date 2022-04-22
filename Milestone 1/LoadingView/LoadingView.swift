@@ -10,7 +10,7 @@ import UIKit
 
 struct LoadingView<Content>: View where Content: View {
 
-@State var isShowing: Bool
+@Binding var isShowing: Bool
 var content: () -> Content
 
 var body: some View {
