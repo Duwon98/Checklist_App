@@ -10,19 +10,18 @@ import Foundation
 /// <#Description#>
 /// It is a View Model
 class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
-    @Published var checklist: CheckList
     /// Checklist Model
-    @Published var tickList = [Bool]()
+    @Published var checklist: CheckList
     /// each checklist have tickList array (False is unticked)
-    @Published var previousTickList = [Bool]()
+    @Published var tickList = [Bool]()
     /// To save previousTickList(undo function)
-    @Published var index = [Int]()
+    @Published var previousTickList = [Bool]()
     /// To present the checklist's list
-    @Published var maxIndex = -1
+    @Published var index = [Int]()
     /// max index of checklist's array
-    
+    @Published var maxIndex = -1
 
-    
+
     /// <#Description#>
     ///  To add list in checklist, it get title of the list
     ///
@@ -68,22 +67,27 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     func returnTickList() -> [Bool]{
         return tickList
     }
-    // it will change all the values of tickList to false. which is unticked
+    
+    /// <#Description#>
+    /// it will change all the values of tickList to false. which is unticked
     func removeTickList() {
         for i in 0 ..< tickList.count{
             self.tickList[i] = false
         }
         Milestone_1App.save()
     }
-    //  it will switch current tickList to previousOne
+    /// <#Description#>
+    /// it will switch current tickList to previousOne
     func updateUndo(previousOne: [Bool]){
         self.tickList = previousOne
+        Milestone_1App.save()
     }
     
-    // It will change change between two list values
+    /// <#Description#>
+    /// It will change change between two list values
+    /// sometimes Swift index 0 output 1, index 1 output 0.
+    /// In order to fix the issues
     func moveIndex(from: Int, to: Int){
-        // sometimes Swift index 0 output 1, index 1 output 0.
-        // In order to fix the issues
         var f : Int, t : Int
         f = from
         t = to
@@ -99,11 +103,11 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         var temList : String
         temList = self.checklist.lists[f]
         
-        //switch the values
+        ///switch the values
         self.checklist.lists.remove(at: f)
         self.checklist.lists.insert(temList, at: t)
         
-        //shiwch ticklist
+        ///shiwch ticklist
         var tick : Bool
         tick = self.tickList[f]
         self.tickList.remove(at: f)
@@ -111,16 +115,14 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         
     }
     
-    func save(){
-        Milestone_1App.save()
-    }
-    
-    
     
     init(checklist: CheckList){
         self.checklist = checklist
     }
     
+    
+    /// <#Description#>
+    /// In order to create the Keys for Json
     enum CodingKeys:String, CodingKey, RawRepresentable{
         case checklist
         case tickList
@@ -129,6 +131,8 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         case maxIndex
     }
     
+    /// <#Description#>
+    /// Manually decoding the values (because Class has been used)
     required init(from decoder: Decoder) throws{
         let container = try decoder.container(keyedBy: CodingKeys.self)
         checklist = try container.decode(CheckList.self, forKey: .checklist)
@@ -138,6 +142,8 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
         maxIndex = try container.decode(Int.self, forKey: .maxIndex)
      }
     
+    /// <#Description#>
+    /// Manually encoding the values (because Class has been used)
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(checklist, forKey: .checklist)

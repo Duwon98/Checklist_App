@@ -20,26 +20,8 @@ struct ContentView: View {
             ChecklistView(checklist: $checklist)
             
         }
-        
-//        if _isLoading{
-//            ZStack{
-//                Color(.systemBackground)
-//                    .ignoresSafeArea()
-//            }
-//
-//            ProgressView()
-//                .progressViewStyle(CircularProgressViewStyle(tint: .black))
-//        }
-        
-
             }
-//func loadingCall(){
-//    _isLoading = true
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//        _isLoading = false
-//    }
-//        }
-                    }
+                }
 
 
 
