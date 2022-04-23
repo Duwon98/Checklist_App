@@ -9,45 +9,48 @@ import SwiftUI
 
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckListViewModel
+    /// The addString variable will check if user put text in add section. if user push add button without any text in it, empty text won't be added to the list.
     @State var addString : String = ""
+    /// Edit mode or not
     @Environment(\.editMode) var mode
-    @State var copyCheckedList = [Bool]()
+    /// if Undo button is pressed, Reset button will be shown(if it's true it Reset button will be shown)
     @State var reSetUndo = false
-    @State var saveing = false
     
     var body: some View {
         VStack{
-            // If you are on the edit mode -> you can edit the navigation title
+            /// If you are on the edit mode -> you can edit the navigation title
             if self.mode?.wrappedValue.isEditing ?? true  {
                 HStack{
                     Text("📝")
-                    TextField((list.checklist.title), text:$list.checklist.title,
+                    TextField((list.checklist.title), text:$list.checklist.title ,
                     onCommit: {
                         Milestone_1App.save()
                     }).navigationTitle(" ")
-
                 }
             }
 
-            // Listing the lists
+            /// Listing the lists
             List{
+                /// It will loop the index of each list.
                 ForEach(list.index, id: \.self){i in
                     HStack{
-                        // if you are on the edit mode -> display the delete button
+                        /// if you are on the edit mode -> display the delete button
                         Button(" ", action: {
                             list.tick(position: i)
                         })
                      
                         
-                    // If it's edit mode, you can also edit the list
+                    /// If it's edit mode, you can also change the name of the list.
                     if self.mode?.wrappedValue.isEditing ?? true  {
                         TextField((list.checklist.lists[i]), text:$list.checklist.lists[i],  onCommit: {
                             Milestone_1App.save()
                         })
-                    }else{
+                    }
+                    /// if it's not edit mode, it will just shows the lists of checklist.
+                    else{
                         Text(list.checklist.lists[i])
                     }
-                        
+                    /// if the ticklist of list is true, shows "ticked" Text
                         if(list.tickList[i]){
                             Spacer()
                             Text("✓")
@@ -58,27 +61,26 @@ struct CheckListDetailView: View {
                 .onMove(perform: move)
                 .onDelete(perform: delete)
                 
-//              if you are on the edit mode -> display the add list row
+                ///if you are on the edit mode -> display the add list row
                 if self.mode?.wrappedValue.isEditing ?? true{
     
                 HStack{
                 Button("Add", action: {
+                    /// Users must put some text to add the list
                     if (addString != "" ){
                         list.addList(name: addString)
                         addString = ""
                     }
                 }).buttonStyle(BorderlessButtonStyle())
                 TextField(("Please put something"), text:$addString)
-                }
+                        }
                     }
-
-                
-            }
+                }
             .toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
-                        // if you are on the edit mode -> display the reset button
+                        /// if you are on the edit mode -> display the reset button
                         if self.mode?.wrappedValue.isEditing ?? true{
-                        // everytime if you click the reset button it will switch to Undo button
+                        /// everytime if you click the reset button it will switch to Undo button
                             if (!reSetUndo){
                                 Button("Reset", action: {
                                     reSet()
@@ -93,11 +95,10 @@ struct CheckListDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing){
                     EditButton()
 
-
-                    }
-        }
-            
-        }.navigationTitle(list.checklist.title)
+                        }
+                }
+                
+            }.navigationTitle(list.checklist.title)
 
         }
     
@@ -114,13 +115,19 @@ struct CheckListDetailView: View {
         Milestone_1App.save()
     }
     
-    
+    /// <#Description#>
+    /// Following function is for moving the lists[array] from checklist.
+    ///   - Parameters:
+    ///     - source:move it FROM where(which index)
+    ///     - destination: where TO move(which index)
     func move(from source: IndexSet, to destination:Int) {
+        /// inorder to change source(IndexSet) to Int
         let index = source.endIndex.description
         let position = index.index(index.startIndex, offsetBy: 6)
         var from : Int
         from = Int(index[position].description) ?? 10
         
+        /// Those operations are fixing the issues fo OnMove (It pass wrong index)
         if (list.index.count == from || from-1 == 0 && destination == 0 ){
             list.moveIndex(from: from-1, to: destination)
         }
@@ -134,7 +141,12 @@ struct CheckListDetailView: View {
         }
             }
     
+    /// <#Description#>
+    /// Following function is to delete list[array] from checklist
+    ///   - Parameters:
+    ///     - offsets:delete it FROM where(which index)
     func delete(at offsets: IndexSet) {
+        /// to change type to int
         let index = offsets.endIndex.description
         let position = index.index(index.startIndex, offsetBy: 6)
         var num : Int

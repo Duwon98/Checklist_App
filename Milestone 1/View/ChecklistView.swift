@@ -15,6 +15,7 @@ struct ChecklistView: View {
     
     var body: some View {
             List{
+                /// It will loop the checklistExport (Checklist)
                 ForEach(checklistExport){list in
                     CheckListRowView(checklist: list)
                 }
