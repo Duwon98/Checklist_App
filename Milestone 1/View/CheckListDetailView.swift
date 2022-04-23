@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CheckListDetailView: View {
-    @ObservedObject var list: CheckListViewModle
+    @ObservedObject var list: CheckListViewModel
     @State var addString : String = ""
     @Environment(\.editMode) var mode
     @State var copyCheckedList = [Bool]()
@@ -120,29 +120,26 @@ struct CheckListDetailView: View {
         let position = index.index(index.startIndex, offsetBy: 6)
         var from : Int
         from = Int(index[position].description) ?? 10
-        list.moveIndex(from: from-1, to: destination-1)
-        Milestone_1App.save()
-
         
-    }
+        if (list.index.count == from || from-1 == 0 && destination == 0 ){
+            list.moveIndex(from: from-1, to: destination)
+        }
+        
+        else if (from-1 == 0 || from-1 < destination-1){
+            list.moveIndex(from: from-1, to: destination-1)
+        }
+        
+        else{
+            list.moveIndex(from: from-1, to: destination)
+        }
+            }
     
     func delete(at offsets: IndexSet) {
-//        list.checklist.lists.remove(atOffsets: offsets)
         let index = offsets.endIndex.description
         let position = index.index(index.startIndex, offsetBy: 6)
         var num : Int
         num = Int(index[position].description) ?? 10
         list.deleteList(position: num-1)
-        Milestone_1App.save()
-        
-        
-        
-        
-        
-       
-        
-        
-
 
     }
     
@@ -154,6 +151,6 @@ struct CheckListDetailView: View {
 //
 //struct CheckListDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CheckListDetailView(list: CheckListViewModle(checklist: CheckList(title: "some list")))
+//        CheckListDetailView(list: CheckListViewModel(checklist: CheckList(title: "some list")))
 //    }
 //}

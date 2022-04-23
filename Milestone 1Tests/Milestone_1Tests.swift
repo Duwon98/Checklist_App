@@ -27,14 +27,14 @@ class Milestone_1Tests: XCTestCase {
     /// <#description#>
     /// Making a CheckList viewModel
     func testCheckListViewModel() throws {
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         XCTAssertEqual(checklist.checklist.title, "Duwon")
     }
     
     /// <#description#>
     /// adding element to the list
     func testAddFunc() throws {
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         XCTAssertEqual(checklist.checklist.lists[0], "Game")
     }
@@ -42,7 +42,7 @@ class Milestone_1Tests: XCTestCase {
     /// <#description#>
     /// deleting the element from the list (it get the position of the element)
     func testDeleteFunc() throws {
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")
@@ -56,7 +56,7 @@ class Milestone_1Tests: XCTestCase {
     /// when you are adding the element to the list, it will automatically generate put false element to the tickList
     /// if you press the element in the CheckListDetailView, it will change false to true.
     func testTickFunc() throws{
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")
@@ -67,7 +67,7 @@ class Milestone_1Tests: XCTestCase {
     /// <#description#>
     ///This function is basically return the TickList
     func testReturnTickList() throws {
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")
@@ -82,7 +82,7 @@ class Milestone_1Tests: XCTestCase {
     /// <#description#>
     /// This Function will reset the TickList (unticked)
     func testRemoveTitckList() throws {
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")
@@ -99,7 +99,7 @@ class Milestone_1Tests: XCTestCase {
     /// <#description#>
     /// Undo function
     func testUndoTickList () throws{
-        let checklist = CheckListViewModle(checklist: CheckList(title: "Duwon"))
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")

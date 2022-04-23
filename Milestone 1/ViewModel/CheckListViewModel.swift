@@ -9,7 +9,7 @@ import Foundation
 
 /// <#Description#>
 /// It is a View Model
-class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
+class CheckListViewModel: Identifiable, ObservableObject, Decodable, Encodable {
     /// Checklist Model
     @Published var checklist: CheckList
     /// each checklist have tickList array (False is unticked)
@@ -26,7 +26,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     ///  To add list in checklist, it get title of the list
     ///
     ///   - Parameters:
-    ///     - parameter_name: <# it get title of the list#>
+    ///     - name: <# it get title of the list#>
     func addList(name: String){
       self.maxIndex += 1
       self.index.append(self.maxIndex)
@@ -40,7 +40,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     /// To delete list in checklist
     ///
     ///  - Parameters:
-    ///     - parameter_position: <# it gets the position of the list#>
+    ///     - position: <# it gets the position of the list#>
     func deleteList(position: Int){
         self.maxIndex -= 1
         self.index.removeLast()
@@ -54,7 +54,7 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     /// get position of the list, if it's false it will switch to true otherwise to false. False is unticked
     ///
     ///  - Parameters:
-    ///     - parameter_position: <# it gets the position of the list#>
+    ///     - position: <# it gets the position of the list#>
     func tick(position: Int){
         self.tickList[position] = !(self.tickList[position])
         Milestone_1App.save()
@@ -85,33 +85,24 @@ class CheckListViewModle: Identifiable, ObservableObject, Decodable, Encodable {
     
     /// <#Description#>
     /// It will change change between two list values
-    /// sometimes Swift index 0 output 1, index 1 output 0.
-    /// In order to fix the issues
+    ///
+    ///  - Parameters:
+    ///     - from:  <# it gets index of from ex) from where to move #>
+    ///     - to: <# it gets index of to ex) where to move#>
     func moveIndex(from: Int, to: Int){
-        var f : Int, t : Int
-        f = from
-        t = to
-        
-        if (f == -1){
-            f += 1
-        }
-        
-        if (t == -1){
-            t += 1
-        }
-        
         var temList : String
-        temList = self.checklist.lists[f]
+        temList = self.checklist.lists[from]
         
         ///switch the values
-        self.checklist.lists.remove(at: f)
-        self.checklist.lists.insert(temList, at: t)
+        self.checklist.lists.remove(at: from)
+        self.checklist.lists.insert(temList, at: to)
         
-        ///shiwch ticklist
+        ///switch ticklist
         var tick : Bool
-        tick = self.tickList[f]
-        self.tickList.remove(at: f)
-        self.tickList.insert(tick, at: t)
+        tick = self.tickList[from]
+        self.tickList.remove(at: from)
+        self.tickList.insert(tick, at: to)
+        Milestone_1App.save()
         
     }
     

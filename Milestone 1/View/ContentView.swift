@@ -10,27 +10,13 @@ import UIKit
 
 
 struct ContentView: View {
-//    @State private var _isLoading: Bool = false
-    @Binding var checklist: [CheckListViewModle]
-//    @State private var isDataLoading = true
+    @Binding var checklist: [CheckListViewModel]
     
     var body: some View {
-        
         NavigationView {
             ChecklistView(checklist: $checklist)
-            
-        }
-            }
                 }
+            }
+        }
 
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(checklist: [CheckListViewModle]())
-//    }
-//}
-//
-//
-//
 
