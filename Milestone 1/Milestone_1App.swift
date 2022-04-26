@@ -70,8 +70,8 @@ struct Milestone_1App: App {
             /// It will encode the checklist then write them in fileURL in Json
             let data = try JSONEncoder().encode(checklist)
             try data.write(to: fileURL , options: .atomic)
-            guard let dataString = String(data: data, encoding: .utf8)else{return}
-            print(dataString)
+//            guard let dataString = String(data: data, encoding: .utf8)else{return}
+//            print(dataString)
         } catch{
             print("Could not write file : \(error)")
         }

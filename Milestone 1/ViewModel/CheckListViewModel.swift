@@ -23,35 +23,36 @@ class CheckListViewModel: Identifiable, ObservableObject, Decodable, Encodable {
 
 
     /// <#Description#>
-    ///  To add list in checklist, it get title of the list
+    ///  To add subList in checklist, it get name of the subList
     ///
     ///   - Parameters:
     ///     - name: <# it get title of the list#>
     func addList(name: String){
       self.maxIndex += 1
       self.index.append(self.maxIndex)
-      self.checklist.lists.append(name)
+      self.checklist.subList.append(name)
       self.tickList.append(false)
       self.previousTickList.append(false)
       Milestone_1App.save()
     }
     
     /// <#Description#>
-    /// To delete list in checklist
+    /// To delete subList from checklist
     ///
     ///  - Parameters:
     ///     - position: <# it gets the position of the list#>
     func deleteList(position: Int){
         self.maxIndex -= 1
         self.index.removeLast()
-        self.checklist.lists.remove(at: position)
+        self.checklist.subList.remove(at: position)
         self.tickList.remove(at: position)
         self.previousTickList.remove(at: position)
         Milestone_1App.save()
     }
     
     /// <#Description#>
-    /// get position of the list, if it's false it will switch to true otherwise to false. False is unticked
+    /// If the subList is clicked by user, the tickList of subList(same index) will change to True or False
+    /// if it's false it will switch to true otherwise to false. False is unticked
     ///
     ///  - Parameters:
     ///     - position: <# it gets the position of the list#>
@@ -91,11 +92,11 @@ class CheckListViewModel: Identifiable, ObservableObject, Decodable, Encodable {
     ///     - to: <# it gets index of to ex) where to move#>
     func moveIndex(from: Int, to: Int){
         var temList : String
-        temList = self.checklist.lists[from]
+        temList = self.checklist.subList[from]
         
         ///switch the values
-        self.checklist.lists.remove(at: from)
-        self.checklist.lists.insert(temList, at: to)
+        self.checklist.subList.remove(at: from)
+        self.checklist.subList.insert(temList, at: to)
         
         ///switch ticklist
         var tick : Bool
@@ -106,11 +107,9 @@ class CheckListViewModel: Identifiable, ObservableObject, Decodable, Encodable {
         
     }
     
-    
     init(checklist: CheckList){
         self.checklist = checklist
     }
-    
     
     /// <#Description#>
     /// In order to create the Keys for Json

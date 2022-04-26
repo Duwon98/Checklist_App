@@ -32,28 +32,38 @@ class Milestone_1Tests: XCTestCase {
     }
     
     /// <#description#>
-    /// adding element to the list
+    /// adding checklist to the CheckListViewModel
+    func testAddingCheckList() throws {
+        var checklist = [CheckListViewModel]()
+        checklist.append(CheckListViewModel(checklist: CheckList(title: "Checklist 1")))
+        XCTAssertEqual(checklist[0].checklist.title, "Checklist 1")
+       
+    }
+    
+
+    /// <#description#>
+    /// adding subList to the Checklist
     func testAddFunc() throws {
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
-        XCTAssertEqual(checklist.checklist.lists[0], "Game")
+        XCTAssertEqual(checklist.checklist.subList[0], "Game")
     }
     
     /// <#description#>
-    /// deleting the element from the list (it get the position of the element)
+    /// deleting the subList from the Checklist (it get the position of the element)
     func testDeleteFunc() throws {
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
         checklist.addList(name: "Netflix")
-        /// should delete 'Video' element
+        /// should delete 'Video'
         checklist.deleteList(position: 1)
         /// so the index 1 should be Nexflix
-        XCTAssertEqual(checklist.checklist.lists[1], "Netflix")
+        XCTAssertEqual(checklist.checklist.subList[1], "Netflix")
     }
     
     /// <#description#>
-    /// when you are adding the element to the list, it will automatically generate put false element to the tickList
+    /// when you are adding the subList to the Checklist, it will automatically generate put false element to the tickList
     /// if you press the element in the CheckListDetailView, it will change false to true.
     func testTickFunc() throws{
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
@@ -66,7 +76,7 @@ class Milestone_1Tests: XCTestCase {
     
     /// <#description#>
     ///This function is basically return the TickList
-    func testReturnTickList() throws {
+    func testReturnTickListFunc() throws {
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
@@ -81,7 +91,7 @@ class Milestone_1Tests: XCTestCase {
     
     /// <#description#>
     /// This Function will reset the TickList (unticked)
-    func testRemoveTitckList() throws {
+    func testRemoveTitckListFunc() throws {
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
@@ -98,7 +108,7 @@ class Milestone_1Tests: XCTestCase {
     
     /// <#description#>
     /// Undo function
-    func testUndoTickList () throws{
+    func testUndoTickListFunc () throws{
         let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
         checklist.addList(name: "Game")
         checklist.addList(name: "Video")
@@ -115,9 +125,17 @@ class Milestone_1Tests: XCTestCase {
         XCTAssertEqual(checklist.tickList[0], true)
     }
     
-    
-    
-    
+    func testMovesubListFunc () throws{
+        let checklist = CheckListViewModel(checklist: CheckList(title: "Duwon"))
+        checklist.addList(name: "Game")
+        checklist.addList(name: "Video")
+        checklist.addList(name: "Netflix")
+        /// Game(index 0) will be moved to index 2
+        /// so Video, Netflix then Game
+        checklist.moveIndex(from: 0, to: 2)
+        /// so the checklist[0] should be Video now
+        XCTAssertEqual(checklist.checklist.subList[0], "Video")
+    }
     
 
     func testPerformanceExample() throws {

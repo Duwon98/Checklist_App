@@ -14,7 +14,7 @@ class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
     /// Checklist title
     @Published var title: String
     /// Checklist's list (it is array)
-    @Published var lists = [String]()
+    @Published var subList = [String]()
 
     init(title: String) {
         self.title = title
@@ -24,7 +24,7 @@ class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
     /// In order to create the Keys for Json
     enum CodingKeys: String, CodingKey, RawRepresentable{
         case title
-        case lists
+        case subList
     }
     
     /// <#Description#>
@@ -32,7 +32,7 @@ class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(String.self, forKey: .title)
-        lists = try container.decode([String].self, forKey: .lists)
+        subList = try container.decode([String].self, forKey: .subList)
     }
  
     /// <#Description#>
@@ -40,7 +40,7 @@ class CheckList: Identifiable, ObservableObject, Decodable, Encodable {
     func encode(to encoder: Encoder) throws{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(title, forKey: .title)
-        try container.encode(lists, forKey: .lists)
+        try container.encode(subList, forKey: .subList)
     }
 }
 

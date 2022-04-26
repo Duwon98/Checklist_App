@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CheckListDetailView: View {
     @ObservedObject var list: CheckListViewModel
-    /// The addString variable will check if user put text in add section. if user push add button without any text in it, empty text won't be added to the list.
+    /// The addString variable will check if user put text in add section. if user push add button without any text in it, empty text won't be added to the subList.
     @State var addString : String = ""
     /// Edit mode or not
     @Environment(\.editMode) var mode
@@ -18,7 +18,7 @@ struct CheckListDetailView: View {
     
     var body: some View {
         VStack{
-            /// If you are on the edit mode -> you can edit the navigation title
+            /// If you are on the edit mode -> you can edit the navigation title (which is checklist title)
             if self.mode?.wrappedValue.isEditing ?? true  {
                 HStack{
                     Text("📝")
@@ -29,9 +29,9 @@ struct CheckListDetailView: View {
                 }
             }
 
-            /// Listing the lists
+            /// Listing the subLists
             List{
-                /// It will loop the index of each list.
+                /// It will loop the index of each subList.
                 ForEach(list.index, id: \.self){i in
                     HStack{
                         /// if you are on the edit mode -> display the delete button
@@ -40,15 +40,15 @@ struct CheckListDetailView: View {
                         })
                      
                         
-                    /// If it's edit mode, you can also change the name of the list.
+                    /// If it's edit mode, you can also change the name of the subList.
                     if self.mode?.wrappedValue.isEditing ?? true  {
-                        TextField((list.checklist.lists[i]), text:$list.checklist.lists[i],  onCommit: {
+                        TextField((list.checklist.subList[i]), text:$list.checklist.subList[i],  onCommit: {
                             Milestone_1App.save()
                         })
                     }
-                    /// if it's not edit mode, it will just shows the lists of checklist.
+                    /// if it's not edit mode, it will just shows subLists of checklist.
                     else{
-                        Text(list.checklist.lists[i])
+                        Text(list.checklist.subList[i])
                     }
                     /// if the ticklist of list is true, shows "ticked" Text
                         if(list.tickList[i]){
@@ -61,12 +61,12 @@ struct CheckListDetailView: View {
                 .onMove(perform: move)
                 .onDelete(perform: delete)
                 
-                ///if you are on the edit mode -> display the add list row
+                ///if you are on the edit mode -> display the add subList row
                 if self.mode?.wrappedValue.isEditing ?? true{
     
                 HStack{
                 Button("Add", action: {
-                    /// Users must put some text to add the list
+                    /// Users must put some text to add the subList
                     if (addString != "" ){
                         list.addList(name: addString)
                         addString = ""
@@ -102,6 +102,9 @@ struct CheckListDetailView: View {
 
         }
     
+    /// <#Description#>
+    /// This function will save the current tickList(for Undo)
+    /// and also call the removeTickList function
     func reSet(){
         list.previousTickList = list.returnTickList()
         list.removeTickList()
@@ -109,6 +112,8 @@ struct CheckListDetailView: View {
         Milestone_1App.save()
     }
     
+    /// <#Description#>
+    /// This function will call the updateUndo function from CheckLstViewModel
     func unDo(){
         list.updateUndo(previousOne: list.previousTickList)
         reSetUndo = false
@@ -116,7 +121,7 @@ struct CheckListDetailView: View {
     }
     
     /// <#Description#>
-    /// Following function is for moving the lists[array] from checklist.
+    /// Following function is for moving the subLists[array] from checklist.
     ///   - Parameters:
     ///     - source:move it FROM where(which index)
     ///     - destination: where TO move(which index)
@@ -142,7 +147,7 @@ struct CheckListDetailView: View {
             }
     
     /// <#Description#>
-    /// Following function is to delete list[array] from checklist
+    /// Following function is to delete subList[array] from checklist
     ///   - Parameters:
     ///     - offsets:delete it FROM where(which index)
     func delete(at offsets: IndexSet) {
