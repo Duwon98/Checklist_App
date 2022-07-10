@@ -39,7 +39,6 @@ class Milestone_1Tests: XCTestCase {
         XCTAssertEqual(checklist[0].checklist.title, "Checklist 1")
        
     }
-    
 
     /// <#description#>
     /// adding subList to the Checklist
