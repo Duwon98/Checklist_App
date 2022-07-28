@@ -9,5 +9,8 @@
 - Data are persistance
 
 <img src="https://github.com/Duwon98/Checklist_App/blob/main/Home.png" width = "200px"/>
+* Home page
 <img src="https://github.com/Duwon98/Checklist_App/blob/main/Lists.png" width = "200px"/>
-<img src="https://github.com/Duwon98/Checklist_App/blob/main/Tick and tick off.png width = "200px"" />
+* Lists page
+<img src="https://github.com/Duwon98/Checklist_App/blob/main/Tick and tick off.png" width = "200px" />
+* Tick and tick off
